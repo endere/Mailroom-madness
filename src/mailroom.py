@@ -7,7 +7,7 @@ def main():
     response = raw_input('What would you like to do? You may type thank you, quit, or report: ')
     if response.lower() == 'thank you':
         thank_you_function()
-        print(write_email_function('test'))
+        #print(write_email_function('test'))
     elif response.lower() == 'report':
         report_function(donors)
         main()
@@ -19,8 +19,9 @@ def main():
 
 
 def thank_you_function():
-    logic = "stuff"
-#def report_function():
+     name = raw_input('Please input donor name, or type list: ')
+     if name.lower() == 'list':
+        print(donors)
 
 def write_email_function(donor):
     if donor['amount'] > 10000:
@@ -30,7 +31,8 @@ def write_email_function(donor):
     else: 
         return "We thank you for your donation, {0}. The orphans will appreciate your donation of {1} dollars.".format(donor['name'],donor['amount'])
 
-
+def report_function(donors):
+    print(donors)
 
 if __name__ == "__main__":
     main()
