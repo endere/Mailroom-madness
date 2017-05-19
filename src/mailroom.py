@@ -6,7 +6,7 @@ donors = [{"name": "Mr. Rogers", "total": 5000000, "times_donated": 50, "average
 def main():
     response = raw_input('What would you like to do? You may type thank you, quit, or report: ')
     if response.lower() == 'thank you':
-        thank_you_function()
+        get_name()
         #print(write_email_function('test'))
     elif response.lower() == 'report':
         report_function(donors)
@@ -18,10 +18,34 @@ def main():
         main()
 
 
-def thank_you_function():
-     name = raw_input('Please input donor name, or type list: ')
-     if name.lower() == 'list':
-        print(donors)
+def get_name():
+    name = raw_input('Please input donor name, or type list, or return: ')
+    if name.lower() == 'list':
+        print([person['name'] for person in donors])
+        get_name()
+    if name.lower() == 'return':
+        main()
+    else:
+        get_amount(name)
+def get_amount(name):
+    amount = raw_input('Please input amount donated, or return: ')
+    if amount.lower() == 'return':
+        main()
+    elif amount.isdigit() == False:
+        print("not a number")
+        get_amount(name)
+    else:
+        process_person(name, int(amount))
+
+def process_person(name, amount):
+    if name not in [person['name'] for person in donors]:
+        donors.append({"name": name, "total": amount, "times_donated": 1, "average": amount})
+    else:
+        this_donor = [person for person in donors if person['name'] == name][0]
+        this_donor['total'] += amount
+        this_donor['times_donated'] += 1
+        this_donor['average'] = round(this_donor['total'] / this_donor['times_donated'])
+
 
 def write_email_function(donor):
     if donor['amount'] > 10000:

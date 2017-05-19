@@ -2,8 +2,14 @@
 
 
 import pytest
-PARAMS_TABLE_REPORT = [
-        ([{"name": "Mr. Rogers", "total": 5000000, "times_donated": 50, "average": 100000}, {"name": "Mark Zuckerberg", "total": 1, "times_donated": 1, "average": 1}, {"name": "Martha Stewart", "total": 5000, "times_donated": 5, "average": 1000}]),([{"name": "Larry", "total": 1000, "times_donated": 10, "average": 100}, {"name": "Curly", "total": 100, "times_donated": 2, "average": 50}, {"name": "Moe", "total": 49, "times_donated": 7, "average": 7}])
+
+donors = [{"name": "George", "total": 3600, "times_donated": 20, "average": 180}]
+"""This is here to test the process function for when there is already a name in the donors list."""
+
+
+PARAMS_TABLE_PROCESS = [
+        ("Greg", 50, {"name": "Greg", "total": 50, "times_donated": 1, "average": 50}),
+        ("George", 400, {"name": "George", "total": 4000, "times_donated": 21, "average": 190})
 
 ]
 PARAMS_TABLE_EMAIL = [
@@ -13,10 +19,10 @@ PARAMS_TABLE_EMAIL = [
 
 ]
 
-# @pytest.mark.parametrize("n, result", PARAMS_TABLE_REPORT)
-# def test_report(n, result):
-#     from mailroom import report_function
-#     assert report_function(n) == result
+@pytest.mark.parametrize("name, amount, result", PARAMS_TABLE_PROCESS)
+def test_process(name, amount, result):
+    from mailroom import process_person
+    assert process_person(name, amount) == result
 
 @pytest.mark.parametrize("donor, result", PARAMS_TABLE_EMAIL)
 def test_email(donor, result):
